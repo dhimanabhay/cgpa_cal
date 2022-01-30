@@ -29,6 +29,7 @@ function addRow()
 addRow();
 addRow();
 
+//removeRow() will not remove first row.
 function removeRow()
 {
     if (activity_number != 1)
@@ -43,6 +44,8 @@ function removeRow()
 }
 
 // calculations
+
+//getMean() and getWeight() will not work if all values are not given or if total is 0
 function getMean()
 {
 
@@ -53,6 +56,23 @@ function getMean()
     {
         var get_score = document.getElementById('score'+(i+1)).value;
         var get_total = document.getElementById('total'+(i+1)).value;
+
+        if (get_score == "" || get_total == "")
+        {
+            var index = i;
+            ++index;
+            alert("Please input all values for Activity " + index + " or delete empty activities");
+            break;
+        }
+
+        if (get_total == 0)
+        {
+            var index = i;
+            ++index;
+            alert("Total for Activity " + index + " cannot be 0");
+            break;
+        }
+        
         score_arr[i] = get_score;
         total_arr[i] = get_total;
     }
@@ -76,6 +96,23 @@ function getWeight()
         var get_score = document.getElementById('score'+(i+1)).value;
         var get_total = document.getElementById('total'+(i+1)).value;
         var get_weight = document.getElementById('weight'+(i+1)).value;
+
+        if (get_weight == "" || get_score == "" || get_total == "")
+        {
+            var index = i;
+            ++index;
+            alert("Please input all values for Activity " + index + " or delete empty activities");
+            break;
+        }
+
+        if (get_total == 0)
+        {
+            var index = i;
+            ++index;
+            alert("Total for Activity " + index + " cannot be 0");
+            break;
+        }
+
         score_arr[i] = get_score;
         total_arr[i] = get_total;
         weight_arr[i] = get_weight;
@@ -91,27 +128,17 @@ function getWeight()
     document.getElementById("result").innerHTML = " Weight is " + (weight/total_weight).toFixed(3);
 }
 
+//getPercent() will only update if both score and total are given
 function getPercent(x)
 {
     var score = document.getElementById("score"+x).value;
     var total = document.getElementById("total"+x).value;
+
+    if (score == "" || total == "")
+    {
+        document.getElementById("percent"+x).innerHTML = "";
+        return;
+    }
     var percentage = score*100 / total;
-
     document.getElementById("percent"+x).innerHTML = (percentage).toFixed(3) + "%";
-
-    console.log(score);
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
